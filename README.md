@@ -54,7 +54,9 @@ YiXin-Distill-Qwen-72B was benchmarked against multiple models, including QwQ-32
 
 YiXin-Distill-Qwen-72B demonstrates significant improvements across mathematical reasoning and general knowledge tasks.
 
-## Quickstart
+## How to Run Locally
+
+### Hugging Face's Transformers
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -84,6 +86,34 @@ generated_ids = [
     output_ids[len(input_ids):] for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
 ]
 response = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
+```
+
+### vLLM or SGLang
+
+For instance, you can easily start a service using [vLLM](https://github.com/vllm-project/vllm):
+
+```shell
+vllm serve YiXin-AILab/YiXin-Distill-Qwen-72B --tensor-parallel-size 4 --max-model-len 32768 --enforce-eager
+```
+
+You can also easily start a service using [SGLang](https://github.com/sgl-project/sglang)
+
+```bash
+python3 -m sglang.launch_server --model YiXin-AILab/YiXin-Distill-Qwen-72B --trust-remote-code --tp 4 --port 8000
+```
+
+Then you can access the Chat API by:
+
+```bash
+curl http://localhost:8000/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -d '{
+    "model": "YiXin-AILab/YiXin-Distill-Qwen-72B",
+    "messages": [
+        {"role": "system", "content": "You are a helpful and harmless assistant. You are Qwen developed by Alibaba. You should think step-by-step."},
+        {"role": "user", "content": "8+8=?"}
+    ]
+    }'
 ```
 
 ## Limitations
