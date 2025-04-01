@@ -56,6 +56,9 @@ YiXin-Distill-Qwen-72B demonstrates significant improvements across mathematical
 
 ## How to Run Locally
 
+This shows how YiXin-AILab/YiXin-Distill-Qwen-72B works, 
+[YiXin-AILab/Yixin-distill-Qwen-72b-AWQ](https://huggingface.co/YiXin-AILab/YiXin-Distill-Qwen-72B-AWQ) only needs to change the model name.
+
 ### Hugging Face's Transformers
 
 ```python
